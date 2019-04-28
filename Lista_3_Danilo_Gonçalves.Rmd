@@ -1,0 +1,134 @@
+---
+title: "Lista 3"
+author: "Danilo Gonçalves dos Santos"
+date: "28 de abril de 2019"
+output: pdf_document
+---
+  
+## LISTA 3 #
+# Questão 1 
+- https://github.com/Danilo-Goncalves/Lista_3_Danilo_Gon-alves.git
+
+
+# Questão 2
+```{r}
+X <- c(4,3.5,3.25,4.25,3,3.5,3.5,4.1,3.25,5.3,4,3.1,4.6,3.75,4.2,3.2,3.9,3.9,3.3,4.5)
+# Os valores da variável X são referentes ao tempo aproximado em minutos das músicas do album das Amigas do Brega no Spotify
+sum(X)
+# A soma do tempo total do album
+Y <- c(3.65,3,3.2,2.15,4,2.3,2.61,2.15,4.8,4,4.85,4.6,5.2,2.8,2.5,3.7,3.7,5.4,4.8,3)
+# Os valores da variável Y são referentes ao tempo aproximado em minutos das 20 primeiras músicas do album Raimundo Aucústico ao Vivo no Spotify
+sum(Y)
+# Pra padronizar, também fiz a soma
+Z <- X+Y
+sum(Z)
+# A soma de Z é o tempo total, em minutos, dos albuns
+Z*10542198428
+ZCPF <- Z*10542198428
+```
+- Multiplicação dos valores de Z pelo número do CPF:  80647817974; 68524289782; 67997179861; 67470069939; 73795388996; 61144750882; 64412832395; 65888740175; 84864697345; 98042445380; 93298456088; 81174927896; 103313544594; 69051399703; 70632729468; 72741169153; 80120708053; 98042445380; 85391807267; 79066488210
+
+
+#Questão 3
+```{r}
+head(mtcars)
+data(mtcars)
+?mtcars
+class(mtcars)
+view(mtcars)
+str(mtcars)
+class(mtcars$mpg)
+class(mtcars$cyl)
+class(mtcars$disp)
+class(mtcars$hp)
+class(mtcars$drat)
+class(mtcars$wt)
+class(mtcars$qsec)
+class(mtcars$vs)
+class(mtcars$am)
+class(mtcars$gear)
+class(mtcars$carb)
+```
+- As variáveis são todas numéricas. Até mesmo as 8ª e 9ª, que por mais cartegoricas que possam ser quando lidas (levando em consideração que são respostas "sim" e "não"), estão dispostas na base como dummys, tendo valores numéricos 1 e 0
+```{r}
+nrow(mtcars)
+# 32 Linhas, ou seja, observações
+ncol(mtcars)
+# 11 dimenções, ou seja, colunas, ou seja, variáveis
+```
+- São 32 Linhas, ou seja, observações. E 11 dimenções, ou seja, colunas, ou seja, variáveis
+```{r}
+mtcars[3]
+# Imprimi a terceita coluna da base
+```
+- A Terceira coluna, variável Displacement (deslocamento)
+```{r}
+mtcars[2,]
+#imprimi a segunda linha da base
+```
+- A segunda linha da base
+```{r}
+mtcars[4,2]
+```
+- O quarto elemento presente na variável "cyl" é o valor 6, o número de cilindros do Hornet 4 drive
+- A Base refere-se a questões técnicas básicas de alguns modelos de carros em suas variáveis, elas são: O consumo de combustível por distância, o número de cilindros, deslocamento, a potência, Relação do eixo traseiro, peso, aceleração, o tipo do motor, caixa de marchas automâtica ou manual, número de marchas e por sim o número de carburadores (respectivamente)
+
+
+#Questão 4
+```{r}
+require(ffbase)
+library(readr)
+setwd("C:/Users/Danilo/Desktop/Mestrado/Diciplinas/Análise de Dados/Aulas/dados_encontro_1_ufpe/dados_encontro_1_ufpe")
+TURMAS <- read_delim("TURMAS.CSV", "|", escape_double = FALSE, trim_ws = TRUE)
+View(TURMAS)
+class(TURMAS)
+TURMASPE <- data.frame(subset(TURMAS, TURMAS$CO_UF=="26"))
+View(TURMASPE)
+# Criado o segundo data frame, apenas com as turmas de Pernambuco
+save(TURMASPE, file = "TURMASPE.RData")
+```
+- Data frame pode ser encontrado no repositório
+
+
+# QUESTÃO 5
+```{r}
+setwd("C:/Users/Danilo/Desktop/Mestrado/Diciplinas/Análise de Dados/Aulas/dados_encontro_1_ufpe/dados_encontro_1_ufpe")
+require(ffbase)
+library(readr)
+load("TURMASPE.RData")
+class(TURMASPE)
+# Aberto o data frame resposta da questão 4
+View(TURMASPE)
+# Identificando a coluno que representa o número de matriculas. NU_MATRICULAS - [7]
+summary(TURMASPE[7])
+# Median :  22.00
+```
+- Há uma média de 22 metrículas por turma em Pernambuco
+
+
+#QUestão 6
+```{r}
+require(ffbase)
+library(readr)
+setwd("C:/Users/Danilo/Desktop/Mestrado/Diciplinas/Análise de Dados/Aulas/dados_encontro_1_ufpe/dados_encontro_1_ufpe")
+DOCENTES_NORDESDETE <- read_delim("DOCENTES_NORDESTE.CSV", "|", escape_double = FALSE, trim_ws = TRUE)
+DOCENTESPE <- subset(DOCENTES_NORDESDETE, DOCENTES_NORDESDETE$CO_UF=="26")
+View(DOCENTESPE)
+table(DOCENTESPE$TP_COR_RACA)
+# Me deu o número de ocorrencias para cada valor
+C <- c(181573, 98141, 14710, 114718, 1419, 2102)
+# Os valores contidos em C são os números de ocorrência de cada valor de Raças em DOCENTESPE
+(C/412663)*100
+# Os valores de C divididos pelo número total de observações em DOCENTESPE mutiplicado por 100
+# Calculo da porcentagem feito de maneira mais manual
+# 0 - Não Declarada - 44.0003102%
+# 1 - Branca - 23.7823599%  
+# 2 - Preta - 3.5646520% 
+# 3 - Parda - 27.7994393%  
+# 4 - Amarela - 0.3438641%  
+# 5 - Indigena - 0.5093745%
+3.5646520 + 27.7994393
+# Soma das porcentages das declarações de raça parda e preta
+```
+- Aproximadamente 31.36% dos docentes de Pernambuco se declararam como pretos ou pardos
+- Aproximadamente 44% dos docentes de Pernambuco não declararam cor ou raça
